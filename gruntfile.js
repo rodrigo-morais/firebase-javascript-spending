@@ -22,6 +22,26 @@
                 flatten: true,
                 filter: 'isFile'
             },
+            jquery: {
+                cwd: './',
+                src: 'vendor/jquery/dist/*',
+                dest: 'dist/vendor/jquery/dist',
+                expand: true,
+                flatten: true,
+                filter: 'isFile'
+            },
+            bootstrap: {
+                cwd: './',
+                src: 'vendor/bootstrap/dist/**',
+                dest: 'dist',
+                expand: true
+            },
+            assets: {
+                cwd: './',
+                src: 'assets/**',
+                dest: 'dist',
+                expand: true
+            }
         }
     });
 

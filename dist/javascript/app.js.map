@@ -1,0 +1,1 @@
+{"version":3,"sources":["javascript/app.js"],"names":[],"mappings":";;;;;;;AAEA,MAAI,QAAQ,GAAG,IAAI,QAAQ,CAAC,QAAO,GAAG,CAAC,CAAC","file":"javascript/app.js","sourcesContent":["﻿import config from 'javascript/config';\r\n\r\nlet spending = new Firebase(config.url);\r\n\r\n"]}
