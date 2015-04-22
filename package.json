@@ -1,0 +1,20 @@
+﻿{
+  "name": "firebase-javascript-spending",
+  "version": "0.0.1",
+  "description": "An app to control spending. This app is used to test features of Firebase developing with JavaScript.",
+  "main": "index.html",
+  "devDependencies": {
+	"grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rodrigo-morais/firebase-javascript-spending.git"
+  },
+  "author": "Rodrigo Morais",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigo-morais/firebase-javascript-spending/issues"
+  },
+  "homepage": "https://github.com/rodrigo-morais/firebase-javascript-spending"
+}
