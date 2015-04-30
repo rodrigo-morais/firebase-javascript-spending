@@ -17,9 +17,21 @@ $('#send').on('click',(event) => {
     form[0].reset();
 });
 
-spending.on("value", (snapshot) => {
-    let spending = snapshot.val().spending;
-    console.log(snapshot.val());
-}, function (errorObject) {
+spending.on("child_added", (snapshot) => {
+    let spending = snapshot.val();
+    let daily = $('#daily');
+
+    for (var spent in spending) {
+        let li = '<li>';
+        li = li + '<span class="label">Date:</span><span class="value">' + spending[spent].date + '</span>';
+        li = li + '<span class="label">Item:</span><span class="value">' + spending[spent].item + '</span>';
+        li = li + '<span class="label">Value:</span><span class="value">' + spending[spent].value + '</span>';
+        li = li + '</li>';
+
+        daily.append(li);
+    }
+    
+},
+(errorObject) => {
     console.log("The read failed: " + errorObject.code);
 });
