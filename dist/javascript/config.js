@@ -3,7 +3,7 @@ define(['exports', 'module'], function (exports, module) {
 
     var config = (function () {
         return {
-            url: 'YOUR-URL'
+            url: 'https://lgwv0cscs30.firebaseio-demo.com/'
         };
     })();
 
