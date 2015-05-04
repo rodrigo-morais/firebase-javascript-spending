@@ -5,15 +5,15 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
 
     var _config = _interopRequire(_javascriptConfig);
 
-    var spending = new Firebase(_config.url);
+    var spending = new Firebase(_config.url),
+        today = moment().format('YYYY-MM-DD');
 
     $('#send').on('click', function (event) {
         event.preventDefault();
 
-        var spent = spending.child('spending');
         var form = $('#spending');
 
-        spent.push({
+        spending.push({
             date: form.find('#dateSpending').val(),
             item: form.find('#item').val(),
             value: form.find('#value').val()
@@ -22,19 +22,19 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         form[0].reset();
     });
 
-    spending.on('child_added', function (snapshot) {
-        var spending = snapshot.val();
+    spending.orderByChild('date').equalTo(today).on('child_added', function (snapshot) {
+        var spent = snapshot.val();
         var daily = $('#daily');
 
-        for (var spent in spending) {
-            var li = '<li>';
-            li = li + '<span class="label">Date:</span><span class="value">' + spending[spent].date + '</span>';
-            li = li + '<span class="label">Item:</span><span class="value">' + spending[spent].item + '</span>';
-            li = li + '<span class="label">Value:</span><span class="value">' + spending[spent].value + '</span>';
-            li = li + '</li>';
+        /*for (var spent in spending) {*/
+        var li = '<li>';
+        li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
+        li = li + '<span class="label">Item:</span><span class="value">' + spent.item + '</span>';
+        li = li + '<span class="label">Value:</span><span class="value">' + spent.value + '</span>';
+        li = li + '</li>';
 
-            daily.append(li);
-        }
+        daily.append(li);
+        /*}*/
     }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
     });

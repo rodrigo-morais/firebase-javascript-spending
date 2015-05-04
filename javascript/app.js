@@ -1,14 +1,14 @@
 ﻿import config from 'javascript/config';
 
-let spending = new Firebase(config.url);
+let spending = new Firebase(config.url),
+    today = moment().format('YYYY-MM-DD');
 
 $('#send').on('click',(event) => {
     event.preventDefault();
 
-    let spent = spending.child('spending');
     let form = $('#spending');
 
-    spent.push({
+    spending.push({
         date: form.find('#dateSpending').val(),
         item: form.find('#item').val(),
         value: form.find('#value').val()
@@ -17,19 +17,19 @@ $('#send').on('click',(event) => {
     form[0].reset();
 });
 
-spending.on("child_added", (snapshot) => {
-    let spending = snapshot.val();
+spending.orderByChild("date").equalTo(today).on("child_added", (snapshot) => {
+    let spent = snapshot.val();
     let daily = $('#daily');
 
-    for (var spent in spending) {
+    /*for (var spent in spending) {*/
         let li = '<li>';
-        li = li + '<span class="label">Date:</span><span class="value">' + spending[spent].date + '</span>';
-        li = li + '<span class="label">Item:</span><span class="value">' + spending[spent].item + '</span>';
-        li = li + '<span class="label">Value:</span><span class="value">' + spending[spent].value + '</span>';
+        li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
+        li = li + '<span class="label">Item:</span><span class="value">' + spent.item + '</span>';
+        li = li + '<span class="label">Value:</span><span class="value">' + spent.value + '</span>';
         li = li + '</li>';
 
         daily.append(li);
-    }
+    /*}*/
     
 },
 (errorObject) => {

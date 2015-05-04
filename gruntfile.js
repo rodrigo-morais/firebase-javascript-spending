@@ -36,6 +36,12 @@
                 dest: 'dist',
                 expand: true
             },
+            moment: {
+                cwd: './',
+                src: 'vendor/moment/min/**',
+                dest: 'dist',
+                expand: true
+            },
             assets: {
                 cwd: './',
                 src: 'assets/**',
