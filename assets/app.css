@@ -8,6 +8,8 @@
 ul#daily
 {
     list-style: none;
+    max-height: 28vh;
+    overflow: hidden;
 }
 
 .per-day
