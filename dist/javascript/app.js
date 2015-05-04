@@ -7,7 +7,8 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
 
     var spending = new Firebase(_config.url),
         today = moment().format('YYYY-MM-DD'),
-        totalDay = 0;
+        totalDay = 0,
+        months = [];
 
     $('#send').on('click', function (event) {
         event.preventDefault();
@@ -27,20 +28,28 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         $('#daily').mCustomScrollbar();
     });
 
-    spending.orderByChild('date').equalTo(today).on('child_added', function (snapshot) {
-        var spent = snapshot.val(),
-            daily = $('#daily').find('ul');
+    var addDailySpent = function addDailySpent(spent) {
+        var daily = $('#daily').find('ul'),
+            li = '<li>';
 
-        var li = '<li>';
         li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
         li = li + '<span class="label">Item:</span><span class="value">' + spent.item + '</span>';
         li = li + '<span class="label">Value:</span><span class="value"> $' + parseFloat(spent.value).toFixed(2) + '</span>';
         li = li + '</li>';
 
         daily.append(li);
+    };
 
-        totalDay = totalDay + parseFloat(spent.value);
+    var sumTotal = function sumTotal(value) {
+        totalDay = totalDay + parseFloat(value);
         $('.total').find('span').text('$' + totalDay.toFixed(2));
+    };
+
+    spending.orderByChild('date').equalTo(today).on('child_added', function (snapshot) {
+        var spent = snapshot.val();
+
+        addDailySpent(spent);
+        sumTotal(spent.value);
     }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
     });
