@@ -5,11 +5,15 @@
     margin-right: 10px;
 }
 
-ul#daily
+#daily
 {
-    list-style: none;
     max-height: 28vh;
     overflow: hidden;
+}
+
+#daily ul
+{
+    list-style: none;
 }
 
 .per-day
@@ -17,21 +21,21 @@ ul#daily
     max-height: 46.5vh
 }
 
-ul#daily li
+#daily ul li
 {
     float: left;
     clear: both;
     width: 100%;
 }
 
-ul#daily li span
+#daily ul li span
 {
     margin-right: 4px;
     width: 15%;
     float: left;
 }
 
-ul#daily li span.label
+#daily ul li span.label
 {
     font-size: 1.2em;
     font-weight: bold;

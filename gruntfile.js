@@ -42,6 +42,18 @@
                 dest: 'dist',
                 expand: true
             },
+            mousewheel: {
+                cwd: './',
+                src: 'vendor/jquery-mousewheel/**',
+                dest: 'dist',
+                expand: true
+            },
+            mCustomScrollbar: {
+                cwd: './',
+                src: 'vendor/malihu-custom-scrollbar-plugin/**',
+                dest: 'dist',
+                expand: true
+            },
             assets: {
                 cwd: './',
                 src: 'assets/**',

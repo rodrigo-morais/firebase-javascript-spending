@@ -23,9 +23,13 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         form[0].reset();
     });
 
+    $('document').ready(function () {
+        $('#daily').mCustomScrollbar();
+    });
+
     spending.orderByChild('date').equalTo(today).on('child_added', function (snapshot) {
-        var spent = snapshot.val();
-        var daily = $('#daily');
+        var spent = snapshot.val(),
+            daily = $('#daily').find('ul');
 
         var li = '<li>';
         li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';

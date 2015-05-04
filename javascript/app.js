@@ -18,9 +18,13 @@ $('#send').on('click',(event) => {
     form[0].reset();
 });
 
+$('document').ready(function(){
+    $("#daily").mCustomScrollbar();
+});
+
 spending.orderByChild("date").equalTo(today).on("child_added", (snapshot) => {
-    let spent = snapshot.val();
-    let daily = $('#daily');
+    let spent = snapshot.val(),
+        daily = $('#daily').find('ul');
 
     let li = '<li>';
     li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
