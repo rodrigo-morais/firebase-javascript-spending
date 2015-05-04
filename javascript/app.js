@@ -18,7 +18,7 @@ $('#send').on('click',(event) => {
     form[0].reset();
 });
 
-$('document').ready(function(){
+$('document').ready(() => {
     $("#daily").mCustomScrollbar();
 });
 

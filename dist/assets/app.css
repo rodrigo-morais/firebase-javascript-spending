@@ -56,3 +56,12 @@
     margin: 0 2% 0 5%;
     font-size: 1.4em;
 }
+
+.per-month
+{
+    float: left;
+    clear: both;
+    max-height: 46vh;
+    min-height: 46vh;
+    width: 99.3%
+}
