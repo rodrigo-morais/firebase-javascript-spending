@@ -45,11 +45,39 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         $('.total').find('span').text('$' + totalDay.toFixed(2));
     };
 
+    var addValueToMonth = function addValueToMonth(spent) {
+        var year = new Date(spent.date).getFullYear(),
+            numbMonth = new Date(spent.date).getMonth() + 1,
+            month = months.filter(function (_month) {
+            return _month.year === year && _month.month === numbMonth;
+        });
+
+        if (month.length > 0) {
+            month[0].value = month[0].value + parseFloat(spent.value);
+        } else {
+            month = {
+                year: year,
+                month: numbMonth,
+                value: parseFloat(spent.value)
+            };
+
+            months.push(month);
+        }
+    };
+
     spending.orderByChild('date').equalTo(today).on('child_added', function (snapshot) {
         var spent = snapshot.val();
 
         addDailySpent(spent);
         sumTotal(spent.value);
+    }, function (errorObject) {
+        console.log('The read failed: ' + errorObject.code);
+    });
+
+    spending.orderByChild('date').on('child_added', function (snapshot) {
+        var spent = snapshot.val();
+
+        addValueToMonth(spent);
     }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
     });

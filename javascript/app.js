@@ -40,12 +40,43 @@ let sumTotal = (value) => {
     $('.total').find('span').text('$' + totalDay.toFixed(2));
 };
 
+let addValueToMonth = (spent) => {
+    let year = new Date(spent.date).getFullYear(),
+        numbMonth = new Date(spent.date).getMonth() + 1,
+        month = months.filter((_month) => {
+            return _month.year === year && _month.month === numbMonth;
+        });
+
+    if(month.length > 0){
+        month[0].value = month[0].value + parseFloat(spent.value);
+    }
+    else{
+        month = {
+            year: year,
+            month: numbMonth,
+            value: parseFloat(spent.value)
+        };
+
+        months.push(month);
+    }
+
+};
+
 spending.orderByChild("date").equalTo(today).on("child_added", (snapshot) => {
     let spent = snapshot.val();
 
     addDailySpent(spent);
     sumTotal(spent.value);
     
+},
+(errorObject) => {
+    console.log("The read failed: " + errorObject.code);
+});
+
+spending.orderByChild("date").on("child_added", (snapshot) => {
+    let spent = snapshot.val();
+
+    addValueToMonth(spent);
 },
 (errorObject) => {
     console.log("The read failed: " + errorObject.code);
