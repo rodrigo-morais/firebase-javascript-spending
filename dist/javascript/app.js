@@ -30,13 +30,13 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         var li = '<li>';
         li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
         li = li + '<span class="label">Item:</span><span class="value">' + spent.item + '</span>';
-        li = li + '<span class="label">Value:</span><span class="value"> $' + Math.round(parseFloat(spent.value)).toFixed(2) + '</span>';
+        li = li + '<span class="label">Value:</span><span class="value"> $' + parseFloat(spent.value).toFixed(2) + '</span>';
         li = li + '</li>';
 
         daily.append(li);
 
         totalDay = totalDay + parseFloat(spent.value);
-        $('.total').find('span').text('$' + Math.round(totalDay).toFixed(2));
+        $('.total').find('span').text('$' + totalDay.toFixed(2));
     }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
     });
