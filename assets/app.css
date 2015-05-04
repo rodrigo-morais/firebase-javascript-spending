@@ -10,6 +10,11 @@ ul#daily
     list-style: none;
 }
 
+.per-day
+{
+    max-height: 46.5vh
+}
+
 ul#daily li
 {
     float: left;
