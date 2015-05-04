@@ -1,7 +1,8 @@
 ﻿import config from 'javascript/config';
 
 let spending = new Firebase(config.url),
-    today = moment().format('YYYY-MM-DD');
+    today = moment().format('YYYY-MM-DD'),
+    totalDay = 0;
 
 $('#send').on('click',(event) => {
     event.preventDefault();
@@ -21,15 +22,16 @@ spending.orderByChild("date").equalTo(today).on("child_added", (snapshot) => {
     let spent = snapshot.val();
     let daily = $('#daily');
 
-    /*for (var spent in spending) {*/
-        let li = '<li>';
-        li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
-        li = li + '<span class="label">Item:</span><span class="value">' + spent.item + '</span>';
-        li = li + '<span class="label">Value:</span><span class="value">' + spent.value + '</span>';
-        li = li + '</li>';
+    let li = '<li>';
+    li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
+    li = li + '<span class="label">Item:</span><span class="value">' + spent.item + '</span>';
+    li = li + '<span class="label">Value:</span><span class="value">' + spent.value + '</span>';
+    li = li + '</li>';
 
-        daily.append(li);
-    /*}*/
+    daily.append(li);
+
+    totalDay = totalDay + parseFloat(spent.value);
+    $('.total').find('span').text(totalDay);
     
 },
 (errorObject) => {

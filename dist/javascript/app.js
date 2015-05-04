@@ -6,7 +6,8 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
     var _config = _interopRequire(_javascriptConfig);
 
     var spending = new Firebase(_config.url),
-        today = moment().format('YYYY-MM-DD');
+        today = moment().format('YYYY-MM-DD'),
+        totalDay = 0;
 
     $('#send').on('click', function (event) {
         event.preventDefault();
@@ -26,7 +27,6 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         var spent = snapshot.val();
         var daily = $('#daily');
 
-        /*for (var spent in spending) {*/
         var li = '<li>';
         li = li + '<span class="label">Date:</span><span class="value">' + spent.date + '</span>';
         li = li + '<span class="label">Item:</span><span class="value">' + spent.item + '</span>';
@@ -34,7 +34,9 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         li = li + '</li>';
 
         daily.append(li);
-        /*}*/
+
+        totalDay = totalDay + parseFloat(spent.value);
+        $('.total').find('span').text(totalDay);
     }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
     });

@@ -31,3 +31,17 @@ ul#daily li span.label
     color: #000000;
     width: 10%;
 }
+
+.total
+{
+    float: left;
+    clear: both;
+    width: 100%;
+    margin-top: 2%;
+}
+
+.total label
+{
+    margin: 0 2% 0 5%;
+    font-size: 1.4em;
+}
