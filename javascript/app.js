@@ -40,27 +40,29 @@ let sumTotal = (value) => {
     $('.total').find('span').text('$' + totalDay.toFixed(2));
 };
 
-let addValueToMonth = (spent) => {
-    let year = new Date(spent.date).getFullYear(),
-        numbMonth = new Date(spent.date).getMonth() + 1,
-        month = months.filter((_month) => {
-            return _month.year === year && _month.month === numbMonth;
-        });
+let addValueToMonth = (spendings) => {
+    for(let key in spendings){
+        let spent = spendings[key],
+            year = new Date(spent.date).getFullYear(),
+            numbMonth = new Date(spent.date).getMonth() + 1,
+            month = months.filter((_month) => {
+                return _month.year === year && _month.month === numbMonth;
+            });
 
-    if(month.length > 0){
-        month[0].value = month[0].value + parseFloat(spent.value);
+        if(month.length > 0){
+            month[0].value = month[0].value + parseFloat(spent.value);
+        }
+        else{
+            month = {
+                year: year,
+                month: numbMonth,
+                monthName: moment(new Date(spent.date)).format('MMMM'),
+                value: parseFloat(spent.value)
+            };
+
+            months.push(month);
+        }
     }
-    else{
-        month = {
-            year: year,
-            month: numbMonth,
-            monthName: moment(new Date(spent.date)).format('MMMM'),
-            value: parseFloat(spent.value)
-        };
-
-        months.push(month);
-    }
-
 };
 
 let showMonths = () => {
@@ -69,6 +71,16 @@ let showMonths = () => {
         average = 0;
 
     months.forEach(function(_month){
+        let monthsUl = $('.months'),
+            li = '<li>';
+
+        li = li + '<span class="label">Month:</span><span class="value">' + _month.monthName + ' / ' + _month.year + '</span>';
+        li = li + '<span class="label">Total:</span><span class="value"> $' + _month.value + '</span>';
+        li = li + '<span class="label">Average:</span><span class="value"> $' + _month.value + '</span>';
+        li = li + '</li>';
+
+        monthsUl.append(li);
+
         total = total + _month.value;
     });
 
@@ -89,10 +101,10 @@ spending.orderByChild("date").equalTo(today).on("child_added", (snapshot) => {
     console.log("The read failed: " + errorObject.code);
 });
 
-spending.orderByChild("date").on("child_added", (snapshot) => {
-    let spent = snapshot.val();
+spending.orderByChild("date").on("value", (snapshot) => {
+    let spendings = snapshot.val();
 
-    addValueToMonth(spent);
+    addValueToMonth(spendings);
     showMonths();
 },
 (errorObject) => {

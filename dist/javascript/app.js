@@ -45,24 +45,31 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         $('.total').find('span').text('$' + totalDay.toFixed(2));
     };
 
-    var addValueToMonth = function addValueToMonth(spent) {
-        var year = new Date(spent.date).getFullYear(),
-            numbMonth = new Date(spent.date).getMonth() + 1,
-            month = months.filter(function (_month) {
-            return _month.year === year && _month.month === numbMonth;
-        });
+    var addValueToMonth = function addValueToMonth(spendings) {
+        var _loop = function (key) {
+            var spent = spendings[key],
+                year = new Date(spent.date).getFullYear(),
+                numbMonth = new Date(spent.date).getMonth() + 1,
+                month = months.filter(function (_month) {
+                return _month.year === year && _month.month === numbMonth;
+            });
 
-        if (month.length > 0) {
-            month[0].value = month[0].value + parseFloat(spent.value);
-        } else {
-            month = {
-                year: year,
-                month: numbMonth,
-                monthName: moment(new Date(spent.date)).format('MMMM'),
-                value: parseFloat(spent.value)
-            };
+            if (month.length > 0) {
+                month[0].value = month[0].value + parseFloat(spent.value);
+            } else {
+                month = {
+                    year: year,
+                    month: numbMonth,
+                    monthName: moment(new Date(spent.date)).format('MMMM'),
+                    value: parseFloat(spent.value)
+                };
 
-            months.push(month);
+                months.push(month);
+            }
+        };
+
+        for (var key in spendings) {
+            _loop(key);
         }
     };
 
@@ -72,6 +79,16 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
             average = 0;
 
         months.forEach(function (_month) {
+            var monthsUl = $('.months'),
+                li = '<li>';
+
+            li = li + '<span class="label">Month:</span><span class="value">' + _month.monthName + ' / ' + _month.year + '</span>';
+            li = li + '<span class="label">Total:</span><span class="value"> $' + _month.value + '</span>';
+            li = li + '<span class="label">Average:</span><span class="value"> $' + _month.value + '</span>';
+            li = li + '</li>';
+
+            monthsUl.append(li);
+
             total = total + _month.value;
         });
 
@@ -90,10 +107,10 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         console.log('The read failed: ' + errorObject.code);
     });
 
-    spending.orderByChild('date').on('child_added', function (snapshot) {
-        var spent = snapshot.val();
+    spending.orderByChild('date').on('value', function (snapshot) {
+        var spendings = snapshot.val();
 
-        addValueToMonth(spent);
+        addValueToMonth(spendings);
         showMonths();
     }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
