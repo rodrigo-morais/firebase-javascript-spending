@@ -65,3 +65,11 @@
     min-height: 46vh;
     width: 99.3%
 }
+
+.per-month .total
+{
+    float: left;
+    bottom: 3%;
+    width: 90%;
+    position: absolute;
+}

@@ -71,18 +71,14 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
             numMonths = months.length,
             average = 0;
 
-        /*total = months.reduce(function(previousMonth, currentMonth, index, array) {
-            if(isNaN(previousMonth)){
-                previousMonth = 0;
-            };
-            return previousMonth + currentMonth.value;
-        });*/
-
         months.forEach(function (_month) {
             total = total + _month.value;
         });
 
         average = total / numMonths;
+
+        $('.per-month').find('.total').find('#total').text(total.toFixed(2));
+        $('.per-month').find('.total').find('#average').text(average.toFixed(2));
     };
 
     spending.orderByChild('date').equalTo(today).on('child_added', function (snapshot) {
