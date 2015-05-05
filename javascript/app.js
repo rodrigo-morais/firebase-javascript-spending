@@ -63,6 +63,25 @@ let addValueToMonth = (spent) => {
 
 };
 
+let showMonths = () => {
+    let total = 0,
+        numMonths = months.length,
+        average = 0;
+    
+    /*total = months.reduce(function(previousMonth, currentMonth, index, array) {
+        if(isNaN(previousMonth)){
+            previousMonth = 0;
+        };
+        return previousMonth + currentMonth.value;
+    });*/
+
+    months.forEach(function(_month){
+        total = total + _month.value;
+    });
+
+    average = total / numMonths;
+}
+
 spending.orderByChild("date").equalTo(today).on("child_added", (snapshot) => {
     let spent = snapshot.val();
 
@@ -78,6 +97,7 @@ spending.orderByChild("date").on("child_added", (snapshot) => {
     let spent = snapshot.val();
 
     addValueToMonth(spent);
+    showMonths();
 },
 (errorObject) => {
     console.log("The read failed: " + errorObject.code);

@@ -66,6 +66,25 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         }
     };
 
+    var showMonths = function showMonths() {
+        var total = 0,
+            numMonths = months.length,
+            average = 0;
+
+        /*total = months.reduce(function(previousMonth, currentMonth, index, array) {
+            if(isNaN(previousMonth)){
+                previousMonth = 0;
+            };
+            return previousMonth + currentMonth.value;
+        });*/
+
+        months.forEach(function (_month) {
+            total = total + _month.value;
+        });
+
+        average = total / numMonths;
+    };
+
     spending.orderByChild('date').equalTo(today).on('child_added', function (snapshot) {
         var spent = snapshot.val();
 
@@ -79,6 +98,7 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         var spent = snapshot.val();
 
         addValueToMonth(spent);
+        showMonths();
     }, function (errorObject) {
         console.log('The read failed: ' + errorObject.code);
     });
