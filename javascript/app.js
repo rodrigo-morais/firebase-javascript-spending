@@ -54,6 +54,7 @@ let addValueToMonth = (spent) => {
         month = {
             year: year,
             month: numbMonth,
+            monthName: moment(new Date(spent.date)).format('MMMM'),
             value: parseFloat(spent.value)
         };
 
