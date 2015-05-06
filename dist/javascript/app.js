@@ -79,7 +79,25 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
             numMonths = months.length,
             average = 0;
 
-        months.forEach(function (_month) {
+        months.sort(function (first, second) {
+            if (first.year > second.year) {
+                return -1;
+            }
+
+            if (first.year < second.year) {
+                return 1;
+            }
+
+            if (first.year === second.year) {
+                if (first.month > second.month) {
+                    return -1;
+                } else if (first.month < second.month) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }).forEach(function (_month) {
             var monthsUl = $('.months'),
                 li = '<li>';
 
