@@ -73,3 +73,35 @@
     width: 90%;
     position: absolute;
 }
+
+#monthly ul
+{
+    list-style: none;
+}
+
+.per-month
+{
+    max-height: 46.5vh
+}
+
+#monthly ul li
+{
+    float: left;
+    clear: both;
+    width: 100%;
+}
+
+#monthly ul li span
+{
+    margin-right: 4px;
+    width: 15%;
+    float: left;
+}
+
+#monthly ul li span.label
+{
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000000;
+    width: 10%;
+}
