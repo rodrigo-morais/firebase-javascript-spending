@@ -21,6 +21,7 @@ $('#send').on('click',(event) => {
 
 $('document').ready(() => {
     $("#daily").mCustomScrollbar();
+    $("#monthly").mCustomScrollbar();
 });
 
 let addDailySpent = (spent) => {
@@ -69,7 +70,10 @@ let addValueToMonth = (spendings) => {
 let showMonths = () => {
     let total = 0,
         numMonths = months.length,
-        average = 0;
+        average = 0,
+        monthsUl = $('.months');
+
+    monthsUl.empty();
 
     months.sort(function(first, second){
         if(first.year > second.year){
@@ -92,8 +96,7 @@ let showMonths = () => {
             }
         }
     }).forEach(function(_month){
-        let monthsUl = $('.months'),
-            li = '<li>';
+        let li = '<li>';
 
         li = li + '<span class="label">Period:</span><span class="value">' + _month.monthName + ' / ' + _month.year + '</span>';
         li = li + '<span class="label">Total:</span><span class="value"> $' + _month.value + '</span>';

@@ -26,6 +26,7 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
 
     $('document').ready(function () {
         $('#daily').mCustomScrollbar();
+        $('#monthly').mCustomScrollbar();
     });
 
     var addDailySpent = function addDailySpent(spent) {
@@ -77,7 +78,10 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
     var showMonths = function showMonths() {
         var total = 0,
             numMonths = months.length,
-            average = 0;
+            average = 0,
+            monthsUl = $('.months');
+
+        monthsUl.empty();
 
         months.sort(function (first, second) {
             if (first.year > second.year) {
@@ -98,10 +102,9 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
                 }
             }
         }).forEach(function (_month) {
-            var monthsUl = $('.months'),
-                li = '<li>';
+            var li = '<li>';
 
-            li = li + '<span class="label">Month:</span><span class="value">' + _month.monthName + ' / ' + _month.year + '</span>';
+            li = li + '<span class="label">Period:</span><span class="value">' + _month.monthName + ' / ' + _month.year + '</span>';
             li = li + '<span class="label">Total:</span><span class="value"> $' + _month.value + '</span>';
             li = li + '<span class="label">Average:</span><span class="value"> $' + (_month.value / _month.days).toFixed(2) + '</span>';
             li = li + '</li>';

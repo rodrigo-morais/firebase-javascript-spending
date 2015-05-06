@@ -57,6 +57,12 @@
     font-size: 1.4em;
 }
 
+#monthly
+{
+    max-height: 28vh;
+    overflow: hidden;
+}
+
 .per-month
 {
     float: left;
