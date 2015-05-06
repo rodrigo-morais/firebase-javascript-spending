@@ -105,7 +105,7 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
             var li = '<li>';
 
             li = li + '<span class="label">Period:</span><span class="value">' + _month.monthName + ' / ' + _month.year + '</span>';
-            li = li + '<span class="label">Total:</span><span class="value"> $' + _month.value + '</span>';
+            li = li + '<span class="label">Total:</span><span class="value"> $' + _month.value.toFixed(2) + '</span>';
             li = li + '<span class="label">Average:</span><span class="value"> $' + (_month.value / _month.days).toFixed(2) + '</span>';
             li = li + '</li>';
 
