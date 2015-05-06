@@ -49,9 +49,9 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
         var _loop = function (key) {
             var spent = spendings[key],
                 year = new Date(spent.date).getFullYear(),
-                numbMonth = new Date(spent.date).getMonth() + 1,
+                numMonth = new Date(spent.date).getMonth() + 1,
                 month = months.filter(function (_month) {
-                return _month.year === year && _month.month === numbMonth;
+                return _month.year === year && _month.month === numMonth;
             });
 
             if (month.length > 0) {
@@ -59,8 +59,9 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
             } else {
                 month = {
                     year: year,
-                    month: numbMonth,
+                    month: numMonth,
                     monthName: moment(new Date(spent.date)).format('MMMM'),
+                    days: new Date(year, numMonth, 0).getDate(),
                     value: parseFloat(spent.value)
                 };
 
@@ -84,7 +85,7 @@ define(['exports', 'javascript/config'], function (exports, _javascriptConfig) {
 
             li = li + '<span class="label">Month:</span><span class="value">' + _month.monthName + ' / ' + _month.year + '</span>';
             li = li + '<span class="label">Total:</span><span class="value"> $' + _month.value + '</span>';
-            li = li + '<span class="label">Average:</span><span class="value"> $' + _month.value + '</span>';
+            li = li + '<span class="label">Average:</span><span class="value"> $' + (_month.value / _month.days).toFixed(2) + '</span>';
             li = li + '</li>';
 
             monthsUl.append(li);
